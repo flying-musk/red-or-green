@@ -1,7 +1,11 @@
 <template>
   <div id="red_or_green" class="r-outer">
     <h1>Red Or Green</h1>
-    <p>Identify new or old, new ---> RED, old ---> GREEN.</p>
+    <p>
+      Identify new or old, <span class="title-red">new</span> --->
+      <b class="title-red">RED</b>, <span class="title-green">old</span> --->
+      <b class="title-green">GREEN</b>.
+    </p>
     <div class="r-buttons">
       <div class="buttons-button" data-color="red"></div>
       <div class="buttons-button" data-color="green"></div>
@@ -48,5 +52,11 @@ export default {
 }
 .buttons-button[data-color='green']:active {
   box-shadow: #ffffff 2px 2px 0 0, #008000 2px 2px 0 1px;
+}
+.title-red {
+  color: #cc0000;
+}
+.title-green {
+  color: #008000;
 }
 </style>
