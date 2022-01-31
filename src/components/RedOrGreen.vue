@@ -6,6 +6,12 @@
       <b class="title-red">RED</b>, <span class="title-green">old</span> --->
       <b class="title-green">GREEN</b>.
     </p>
+    <div class="r-main">
+      <svg class="svg" fill="none" stroke="black">
+        <path :d="value" />
+      </svg>
+    </div>
+    <div class="r-space"></div>
     <div class="r-buttons">
       <div class="buttons-button" data-color="red"></div>
       <div class="buttons-button" data-color="green"></div>
@@ -14,16 +20,27 @@
 </template>
 
 <script>
+import { generatePath } from '../generate.js';
 export default {
   name: 'RedOrGreen',
+  data() {
+    return { value: generatePath() };
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .r-outer {
-  border: solid 1px #cccccc;
   display: flex;
   flex-direction: column;
+}
+.r-main {
+  align-self: center;
+  border: solid 1px #e6e6e6;
+  border-radius: 4px;
+  width: 400px;
+  height: 400px;
+  display: flex;
 }
 .r-buttons {
   align-self: center;
@@ -58,5 +75,13 @@ export default {
 }
 .title-green {
   color: #008000;
+}
+.r-space {
+  align-self: center;
+  width: 16px;
+  height: 16px;
+}
+.svg {
+  flex-grow: 1;
 }
 </style>
