@@ -8,13 +8,13 @@
     </p>
     <div class="r-main">
       <svg class="svg" fill="none" stroke="black">
-        <path :d="value" />
+        <path :d="currentValue" />
       </svg>
     </div>
     <div class="r-space"></div>
     <div class="r-buttons">
-      <div class="buttons-button" data-color="red"></div>
-      <div class="buttons-button" data-color="green"></div>
+      <div class="buttons-button" data-color="red" @click="buttonClick"></div>
+      <div class="buttons-button" data-color="green" @click="buttonClick"></div>
     </div>
   </div>
 </template>
@@ -24,7 +24,29 @@ import { generatePath } from '../generate.js';
 export default {
   name: 'RedOrGreen',
   data() {
-    return { value: generatePath() };
+    return {
+      newItemFlag: Math.random(),
+      items: [],
+      currentType: '',
+      currentValue: '',
+    };
+  },
+  watch: {
+    newItemFlag: {
+      immediate: true,
+      handler() {
+        let newItem = { type: 'path', value: generatePath(), new: true };
+        this.items.push(newItem);
+        this.items.sort(() => Math.random() - 0.5);
+        this.currentType = this.items[0].type;
+        this.currentValue = this.items[0].value;
+      },
+    },
+  },
+  methods: {
+    buttonClick() {
+      this.newItemFlag = Math.random();
+    },
   },
 };
 </script>
