@@ -40,8 +40,9 @@ function getAngle(pointA, pointB, pointC) {
   return Math.acos((a * a + b * b - c * c) / (2 * a * b)) * (180 / Math.PI);
 }
 export const generatePath = () => {
+  lastTwoPoints = [];
   let pathString = `M ${pointString()} C ${pointString()} ${pointString()} ${pointString()}`;
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 5; i++) {
     pathString += `S ${pointString()} ${pointString()} `;
   }
   return pathString;
