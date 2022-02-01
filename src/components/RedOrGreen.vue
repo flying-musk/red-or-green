@@ -6,6 +6,8 @@
       <b class="title-red">RED</b>, <span class="title-green">old</span> --->
       <b class="title-green">GREEN</b>.
     </p>
+    <p>Score: {{ currentScore }} / {{ items.length }}</p>
+    <p>{{ items[0].new }}</p>
     <div class="r-main" :data-error="error">
       <svg class="svg" fill="none" stroke="black">
         <path :d="currentValue" />
@@ -13,8 +15,16 @@
     </div>
     <div class="r-space"></div>
     <div class="r-buttons">
-      <div class="buttons-button" data-color="red" @click="buttonClick"></div>
-      <div class="buttons-button" data-color="green" @click="buttonClick"></div>
+      <div
+        class="buttons-button"
+        data-color="red"
+        @click="buttonClick(true)"
+      ></div>
+      <div
+        class="buttons-button"
+        data-color="green"
+        @click="buttonClick(false)"
+      ></div>
     </div>
   </div>
 </template>
@@ -27,6 +37,7 @@ export default {
     return {
       newItemFlag: Math.random(),
       items: [],
+      currentScore: 0,
       currentType: '',
       currentValue: '',
       error: false,
@@ -45,13 +56,16 @@ export default {
     },
   },
   methods: {
-    errorClick() {
-      this.error = true;
-      setTimeout(() => {
-        this.error = false;
-      }, 360);
-    },
-    buttonClick() {
+    buttonClick(userResponse) {
+      if (userResponse !== this.items[0].new) {
+        this.error = true;
+        setTimeout(() => {
+          this.error = false;
+        }, 360);
+      } else {
+        this.currentScore++;
+      }
+      this.items[0].new = false;
       this.newItemFlag = Math.random();
     },
   },
