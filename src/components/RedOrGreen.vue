@@ -6,7 +6,7 @@
       <b class="title-red">RED</b>, <span class="title-green">old</span> --->
       <b class="title-green">GREEN</b>.
     </p>
-    <div class="r-main">
+    <div class="r-main" :data-error="error">
       <svg class="svg" fill="none" stroke="black">
         <path :d="currentValue" />
       </svg>
@@ -29,6 +29,7 @@ export default {
       items: [],
       currentType: '',
       currentValue: '',
+      error: false,
     };
   },
   watch: {
@@ -44,6 +45,12 @@ export default {
     },
   },
   methods: {
+    errorClick() {
+      this.error = true;
+      setTimeout(() => {
+        this.error = false;
+      }, 360);
+    },
     buttonClick() {
       this.newItemFlag = Math.random();
     },
@@ -58,11 +65,16 @@ export default {
 }
 .r-main {
   align-self: center;
+  transition: 0.24s ease-out;
   border: solid 1px #e6e6e6;
   border-radius: 4px;
   width: 400px;
   height: 400px;
   display: flex;
+}
+.r-main[data-error='true'] {
+  border: solid 1px #fde8e9;
+  box-shadow: 0px 4px 15px rgba(204, 0, 0, 0.36);
 }
 .r-buttons {
   align-self: center;
