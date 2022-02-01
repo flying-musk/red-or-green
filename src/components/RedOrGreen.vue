@@ -26,6 +26,8 @@
         @click="buttonClick(false)"
       ></div>
     </div>
+    <div class="r-space"></div>
+    <div class="r-count">{{ count }}</div>
   </div>
 </template>
 
@@ -47,6 +49,8 @@ export default {
       currentType: '',
       currentValue: '',
       error: false,
+      count: 0,
+      intervalId: 0,
     };
   },
   computed: {
@@ -72,21 +76,39 @@ export default {
         this.items.sort(() => Math.random() - 0.5);
         this.currentType = this.items[0].type;
         this.currentValue = this.items[0].value;
+        this.initInterval();
       },
     },
   },
   methods: {
     buttonClick(userResponse) {
       if (userResponse !== this.items[0].new) {
-        this.error = true;
-        setTimeout(() => {
-          this.error = false;
-        }, 240);
+        this.showError();
       } else {
         this.currentScore++;
       }
+      this.showNewItem();
+    },
+    initInterval() {
+      this.count = 0;
+      this.intervalId = setInterval(() => {
+        this.count += 1;
+        if (this.count === 4) {
+          this.showError();
+          this.showNewItem();
+        }
+      }, 1000);
+    },
+    showNewItem() {
+      clearInterval(this.intervalId);
       this.items[0].new = false;
       this.newItemFlag = Math.random();
+    },
+    showError() {
+      this.error = true;
+      setTimeout(() => {
+        this.error = false;
+      }, 200);
     },
   },
 };
@@ -99,7 +121,7 @@ export default {
 }
 .r-main {
   align-self: center;
-  transition: 0.24s ease-out;
+  transition: 0.16s ease-out;
   border: solid 1px #e6e6e6;
   border-radius: 4px;
   width: 400px;
@@ -108,7 +130,7 @@ export default {
 }
 .r-main[data-error='true'] {
   border: solid 1px #fde8e9;
-  box-shadow: 0px 4px 15px rgba(204, 0, 0, 0.36);
+  box-shadow: 0px 4px 15px rgba(204, 0, 0, 0.24);
 }
 .r-title {
   flex-grow: 1;
@@ -157,5 +179,9 @@ export default {
 }
 .svg {
   flex-grow: 1;
+}
+.r-count {
+  align-self: center;
+  font-size: 40px;
 }
 </style>
