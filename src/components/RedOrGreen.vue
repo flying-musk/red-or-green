@@ -7,11 +7,11 @@
       <b class="title-green">GREEN</b>.
     </p>
     <p>Score: {{ currentScore }} / {{ items.length }}</p>
-    <p>{{ items[0].new }}</p>
     <div class="r-main" :data-error="error">
-      <svg class="svg" fill="none" stroke="black">
+      <svg v-if="currentType === 'path'" class="svg" fill="none" stroke="black">
         <path :d="currentValue" />
       </svg>
+      <div v-else class="r-title">{{ currentValue }}</div>
     </div>
     <div class="r-space"></div>
     <div class="r-buttons">
@@ -30,7 +30,13 @@
 </template>
 
 <script>
-import { generatePath } from '../generate.js';
+import {
+  generatePath,
+  generateNumber,
+  generateString,
+  generateLicensePlate,
+  generateEquation,
+} from '../generate.js';
 export default {
   name: 'RedOrGreen',
   data() {
@@ -43,11 +49,25 @@ export default {
       error: false,
     };
   },
+  computed: {
+    newItemType: function () {
+      return Math.floor(this.newItemFlag * 5);
+    },
+  },
   watch: {
     newItemFlag: {
       immediate: true,
       handler() {
-        let newItem = { type: 'path', value: generatePath(), new: true };
+        let newItem =
+          this.newItemType === 0
+            ? { type: 'path', value: generatePath(), new: true }
+            : this.newItemType === 1
+            ? { type: 'number', value: generateNumber(), new: true }
+            : this.newItemType === 2
+            ? { type: 'string', value: generateString(), new: true }
+            : this.newItemType === 3
+            ? { type: 'licensePlate', value: generateLicensePlate(), new: true }
+            : { type: 'equation', value: generateEquation(), new: true };
         this.items.push(newItem);
         this.items.sort(() => Math.random() - 0.5);
         this.currentType = this.items[0].type;
@@ -61,7 +81,7 @@ export default {
         this.error = true;
         setTimeout(() => {
           this.error = false;
-        }, 360);
+        }, 240);
       } else {
         this.currentScore++;
       }
@@ -89,6 +109,12 @@ export default {
 .r-main[data-error='true'] {
   border: solid 1px #fde8e9;
   box-shadow: 0px 4px 15px rgba(204, 0, 0, 0.36);
+}
+.r-title {
+  flex-grow: 1;
+  align-self: center;
+  font-size: 72px;
+  text-align: center;
 }
 .r-buttons {
   align-self: center;

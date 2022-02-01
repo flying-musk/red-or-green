@@ -47,3 +47,37 @@ export const generatePath = () => {
   }
   return pathString;
 };
+
+export const generateNumber = () => {
+  return Math.floor(Math.random() * 10000);
+};
+
+export const generateString = () => {
+  return [
+    ...[...Array(26).keys()].map((i) => String.fromCharCode(i + 65)),
+    ...[...Array(26).keys()].map((i) => String.fromCharCode(i + 65)),
+    ...[...Array(10).keys()].map((i) => i),
+    ...[...Array(10).keys()].map((i) => i),
+    ...[...Array(10).keys()].map((i) => i),
+    ...[...Array(10).keys()].map((i) => i),
+  ]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 5)
+    .join('');
+};
+
+export const generateLicensePlate = () => {
+  return `${[
+    ...[...Array(26).keys()].map((i) => String.fromCharCode(i + 65)),
+    ...[...Array(26).keys()].map((i) => String.fromCharCode(i + 65)),
+  ]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 2)
+    .join('')}-${Math.floor(Math.random() * 1000)}`;
+};
+
+export const generateEquation = () => {
+  return `${Math.floor(Math.random() * 100)} ${
+    '+-*/%'[Math.floor(Math.random() * 5)]
+  } ${Math.floor(Math.random() * 100)}`;
+};
