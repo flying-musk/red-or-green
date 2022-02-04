@@ -3,8 +3,9 @@
     <h1>Red Or Green</h1>
     <p>
       Identify new or old, <span class="title-red">new</span> --->
-      <b class="title-red">RED</b>, <span class="title-green">old</span> --->
-      <b class="title-green">GREEN</b>.
+      <b class="title-red">RED</b> <span class="title-red">(F)</span>,
+      <span class="title-green">old</span> --->
+      <b class="title-green">GREEN</b> <span class="title-green">(J)</span>.
     </p>
     <p>Score: {{ currentScore }} / {{ items.length }}</p>
     <div class="r-main" :data-error="error">
@@ -52,6 +53,16 @@ export default {
       count: 0,
       intervalId: 0,
     };
+  },
+  created() {
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'f') {
+        this.buttonClick(true);
+      }
+      if (e.key === 'j') {
+        this.buttonClick(false);
+      }
+    });
   },
   computed: {
     newItemType: function () {
