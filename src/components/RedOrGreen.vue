@@ -151,7 +151,7 @@ export default {
 }
 .r-buttons {
   align-self: center;
-  min-width: 64vw;
+  min-width: 640px;
   display: flex;
   justify-content: space-between;
 }
@@ -194,5 +194,10 @@ export default {
 .r-count {
   align-self: center;
   font-size: 40px;
+}
+@media (max-width: 1000px) {
+  .r-buttons {
+    min-width: 64vw;
+  }
 }
 </style>
