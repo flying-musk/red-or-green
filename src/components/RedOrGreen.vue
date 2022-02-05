@@ -19,11 +19,13 @@
       <div
         class="buttons-button"
         data-color="red"
+        :data-down="isRedDown"
         @click="buttonClick(true)"
       ></div>
       <div
         class="buttons-button"
         data-color="green"
+        :data-down="isGreenDown"
         @click="buttonClick(false)"
       ></div>
     </div>
@@ -52,15 +54,27 @@ export default {
       error: false,
       count: 0,
       intervalId: 0,
+      isRedDown: false,
+      isGreenDown: false,
     };
   },
   created() {
     window.addEventListener('keydown', (e) => {
       if (e.key === 'f') {
+        this.isRedDown = true;
         this.buttonClick(true);
       }
       if (e.key === 'j') {
+        this.isGreenDown = true;
         this.buttonClick(false);
+      }
+    });
+    window.addEventListener('keyup', (e) => {
+      if (e.key === 'f') {
+        this.isRedDown = false;
+      }
+      if (e.key === 'j') {
+        this.isGreenDown = false;
       }
     });
   },
@@ -167,14 +181,16 @@ export default {
   background-color: #cc0000;
   box-shadow: #ffffff 4px 4px 0 0, #cc0000 4px 4px 0 1px;
 }
-.buttons-button[data-color='red']:active {
+.buttons-button[data-color='red']:active,
+.buttons-button[data-down='true'] {
   box-shadow: #ffffff 2px 2px 0 0, #cc0000 2px 2px 0 1px;
 }
 .buttons-button[data-color='green'] {
   background-color: #008000;
   box-shadow: #ffffff 4px 4px 0 0, #008000 4px 4px 0 1px;
 }
-.buttons-button[data-color='green']:active {
+.buttons-button[data-color='green']:active,
+.buttons-button[data-down='true'] {
   box-shadow: #ffffff 2px 2px 0 0, #008000 2px 2px 0 1px;
 }
 .title-red {
