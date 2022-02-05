@@ -174,7 +174,8 @@ export default {
   width: 96px;
   height: 96px;
 }
-.buttons-button:active {
+.buttons-button:active,
+.buttons-button[data-down='true'] {
   transform: translate(2px, 2px);
 }
 .buttons-button[data-color='red'] {
@@ -182,7 +183,7 @@ export default {
   box-shadow: #ffffff 4px 4px 0 0, #cc0000 4px 4px 0 1px;
 }
 .buttons-button[data-color='red']:active,
-.buttons-button[data-down='true'] {
+.buttons-button[data-color='red'][data-down='true'] {
   box-shadow: #ffffff 2px 2px 0 0, #cc0000 2px 2px 0 1px;
 }
 .buttons-button[data-color='green'] {
@@ -190,7 +191,7 @@ export default {
   box-shadow: #ffffff 4px 4px 0 0, #008000 4px 4px 0 1px;
 }
 .buttons-button[data-color='green']:active,
-.buttons-button[data-down='true'] {
+.buttons-button[data-color='green'][data-down='true'] {
   box-shadow: #ffffff 2px 2px 0 0, #008000 2px 2px 0 1px;
 }
 .title-red {
